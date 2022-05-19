@@ -107,7 +107,7 @@ def fun_SpawnDict():
     frame['width'] = 400
     frame['height'] = 150
 
-    yesno = tkinter.messagebox.askquestion(title='输入设置', message='是否要一次性进行多个语言文件的字典文件生成')
+    yesno = tkinter.messagebox.askquestion(title='입력 설정', message='여러 언어 파일의 사전 파일 생성을 한 번에 진행할 지 여부')
     if yesno == 'no':
         path_origin = ' '
         path_translate = ' '
@@ -129,14 +129,14 @@ def fun_SpawnDict():
             InputBox_translate_path.delete(0, END)
             InputBox_translate_path.insert(0, path_translate)
 
-        fail = tkinter.Label(frame, text='参数错误', fg='red')
-        Success = tkinter.Label(frame, text='生成字典文件成功', fg='red')
-        origin = tkinter.Label(frame, text='原始语言文件:')
+        fail = tkinter.Label(frame, text='인자 오류', fg='red')
+        Success = tkinter.Label(frame, text='사전 파일 생성 성공', fg='red')
+        origin = tkinter.Label(frame, text='원본 언어 파일:')
         InputBox_origin_path = tkinter.Entry(frame, text=' ', bg='white', fg='black', width=30)
-        origin_browse = tkinter.Button(frame, text='浏览', command=Input_origin)
-        translate = tkinter.Label(frame, text='已翻译的语言文件:')
+        origin_browse = tkinter.Button(frame, text='탐색', command=Input_origin)
+        translate = tkinter.Label(frame, text='번역된 언어 파일:')
         InputBox_translate_path = tkinter.Entry(frame, text=' ', bg='white', fg='black', width=30)
-        translate_browse = tkinter.Button(frame, text='浏览', command=Input_translate)
+        translate_browse = tkinter.Button(frame, text='탐색', command=Input_translate)
 
         origin.place(x=30, y=10)
         InputBox_origin_path.place(x=110, y=10)
@@ -155,24 +155,24 @@ def fun_SpawnDict():
         def close():
             window.destroy()
 
-        confirm = tkinter.Button(frame, text='确认', command=confirm)
-        cancel = tkinter.Button(frame, text='取消', command=close)
+        confirm = tkinter.Button(frame, text='확인', command=confirm)
+        cancel = tkinter.Button(frame, text='취소', command=close)
         confirm.place(relx=0.35, rely=0.6)
         cancel.place(relx=0.60, rely=0.6)
     else:
-        Notice = tkinter.Label(frame, text='这个功能还在开发中...', fg='red')
+        Notice = tkinter.Label(frame, text='개발 중인 기능...', fg='red')
         Notice.place(relx=0.30, rely=0.4)
 
         def close():
             window.destroy()
 
-        cancel = tkinter.Button(frame, text='取消', command=close)
+        cancel = tkinter.Button(frame, text='취소', command=close)
         cancel.place(relx=0.45, rely=0.6)
     frame.pack()
     window.mainloop()
 
 
-submenu.add_command(label='生成字典文件', command=fun_SpawnDict)
+submenu.add_command(label='사전 파일 생성', command=fun_SpawnDict)
 submenu.add_separator()
 
 
@@ -190,7 +190,7 @@ def fun_translate():
     frame['height'] = 110
 
     path_origin = ''
-    origin = tkinter.Label(frame, text='原始语言文件:')
+    origin = tkinter.Label(frame, text='원본 언어 파일:')
     InputBox_origin_path = tkinter.Entry(frame, text='', bg='white', fg='black', width=30)
 
     def Input_Origin():
@@ -199,7 +199,7 @@ def fun_translate():
         InputBox_origin_path.delete(0, END)
         InputBox_origin_path.insert(0, path_origin)
 
-    origin_browse = tkinter.Button(frame, text='浏览', command=Input_Origin)
+    origin_browse = tkinter.Button(frame, text='탐색', command=Input_Origin)
     error = tkinter.Label()
     success = tkinter.Label()
     InputBox_origin_path.place(x=95, y=15)
@@ -210,7 +210,7 @@ def fun_translate():
         nonlocal error
         nonlocal success
         if os.path.isfile('./source_file/dict/' + filename(path_origin) + '_dict.json'):
-            success = tkinter.Label(frame, text='导出语言文件成功\n导出目录位于.\\source_file\\ouput')
+            success = tkinter.Label(frame, text='언어 파일을 내보내는 데 성공했습니다.\n\\source_file\\ouput')
             if 'error' in dir():
                 error.destroy()
             TranslateOrigin(path_origin)
@@ -218,14 +218,14 @@ def fun_translate():
         else:
             if 'success' in dir():
                 success.destroy()
-            error = tkinter.Label(frame, text='该语言文件' + filename(path_origin) + '的字典文件不存在无法导出。')
+            error = tkinter.Label(frame, text='원본 파일이 없어 (' + filename(path_origin) + ') 내보내지 못했습니다.')
             error.place(x=85, y=35)
 
     def close():
         window.destroy()
 
-    confirm = tkinter.Button(frame, text='确认', command=confirm)
-    cancel = tkinter.Button(frame, text='取消', command=close)
+    confirm = tkinter.Button(frame, text='확인', command=confirm)
+    cancel = tkinter.Button(frame, text='취소', command=close)
     confirm.place(relx=0.35, rely=0.7)
     cancel.place(relx=0.60, rely=0.7)
 
@@ -233,9 +233,9 @@ def fun_translate():
     window.mainloop()
 
 
-submenu.add_command(label='翻译原始语言文件', command=fun_translate)
+submenu.add_command(label='원본 언어 파일 번역', command=fun_translate)
 submenu.add_separator()
-submenu.add_command(label='关闭', command=Close)
-menu.add_cascade(label='功能', menu=submenu)
+submenu.add_command(label='닫기', command=Close)
+menu.add_cascade(label='파일', menu=submenu)
 app.config(menu=menu)
 app.mainloop()
